@@ -1,0 +1,38 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "bEp2gg5jWBbhCRSSRVv3",
+    "database": "railway",
+    "host": "containers-us-west-50.railway.app",
+    "dialect": "postgresql",
+    "use_env_variable": true,
+    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "bEp2gg5jWBbhCRSSRVv3",
+    "database": "railway",
+    "host": "containers-us-west-50.railway.app",
+    "dialect": "postgresql",
+    "use_env_variable": true,
+    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "bEp2gg5jWBbhCRSSRVv3",
+    "database": "railway",
+    "host": "containers-us-west-50.railway.app",
+    "dialect": "postgresql",
+    "use_env_variable": true,
+    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "bEp2gg5jWBbhCRSSRVv3",
+    "database": "railway",
+    "host": "containers-us-west-50.railway.app",
+    "dialect": "postgresql",
+    "use_env_variable": true,
+    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+  }
+}
