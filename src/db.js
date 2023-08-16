@@ -43,20 +43,14 @@ fs.readdirSync(path.join(__dirname, "/models"))
   });
 // Injectamos la conexion (sequelize) a todos los modelos
 db.forEach((modelName) => modelName(sequelize, Sequelize.DataTypes));
-// Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
-  entry[0][0].toUpperCase() + entry[0].slice(1),
+  entry[0][0].toLowerCase() + entry[0].slice(1),
   entry[1],
 ]);
 
 sequelize.models = Object.fromEntries(capsEntries);
 
-Object.keys(sequelize.models).forEach((modelDb) => {
-  if (sequelize.models[modelDb].associate) {
-    sequelize.models[modelDb].associate(sequelize.models);
-  }
-});
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
