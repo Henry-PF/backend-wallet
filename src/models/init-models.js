@@ -22,6 +22,8 @@ var _usuarios_verificacion = require("./usuarios_verificacion");
 
 function initModels(sequelize) {
   var datos_persona = _datos_persona(sequelize, DataTypes);
+  var tipo_usuario = _tipo_usuario(sequelize, DataTypes);
+  var usuarios = _usuarios(sequelize, DataTypes);
   var log_transacciones = _log_transacciones(sequelize, DataTypes);
   var modulos = _modulos(sequelize, DataTypes);
   var password_reset = _password_reset(sequelize, DataTypes);
@@ -34,10 +36,8 @@ function initModels(sequelize) {
   var registro_recarga = _registro_recarga(sequelize, DataTypes);
   var registro_retiro = _registro_retiro(sequelize, DataTypes);
   var registro_transferencia = _registro_transferencia(sequelize, DataTypes);
-  var saldo_bolsillo_global = _saldo_bolsillo_global(sequelize, DataTypes);
   var tipo_bolsillo = _tipo_bolsillo(sequelize, DataTypes);
-  var tipo_usuario = _tipo_usuario(sequelize, DataTypes);
-  var usuarios = _usuarios(sequelize, DataTypes);
+  var saldo_bolsillo_global = _saldo_bolsillo_global(sequelize, DataTypes);
   var usuarios_bolsillo = _usuarios_bolsillo(sequelize, DataTypes);
   var usuarios_contacto = _usuarios_contacto(sequelize, DataTypes);
   var usuarios_verificacion = _usuarios_verificacion(sequelize, DataTypes);
