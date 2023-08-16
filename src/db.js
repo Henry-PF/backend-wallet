@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
+const initModels = require("./models/init-models");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/config/config.json")[env];
@@ -16,7 +17,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
     {
-      logging: false,
+      logging: true,
       native: false,
     }
   );
@@ -43,14 +44,8 @@ fs.readdirSync(path.join(__dirname, "/models"))
   });
 // Injectamos la conexion (sequelize) a todos los modelos
 db.forEach((modelName) => modelName(sequelize, Sequelize.DataTypes));
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
-  entry[0][0].toLowerCase() + entry[0].slice(1),
-  entry[1],
-]);
 
-sequelize.models = Object.fromEntries(capsEntries);
-
+sequelize.models = initModels.initModels(sequelize);
 module.exports = {
   ...sequelize.models,
   conn: sequelize,

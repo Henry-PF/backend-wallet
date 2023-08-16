@@ -1,4 +1,4 @@
-const sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('usuarios', {
     id: {
@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    'contraseña': {
+    'contrasena': {
       type: DataTypes.STRING(255),
       allowNull: false
     },

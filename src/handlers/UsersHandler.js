@@ -20,7 +20,10 @@ exports.UserUpdate= async (req, res) => {
 exports.findAll= async (req, res) => {
     let result={};
     try {
-        
+        result = await findAll();
+        if(result){
+            res.status(200).json(result);
+        }
     } catch (error) {
         return res.status(500).json({ error: { message: "Error al consultar la data del usuario." } });
     }
