@@ -1,4 +1,4 @@
-const { Plans } = require("../models/planes"); // Ajusta la ruta según tu estructura
+const { Plans } = require("../models/planes");
 
 const plansController = {
   getAllPlans: async (req, res) => {
@@ -28,8 +28,10 @@ const plansController = {
 
   createPlan: async (req, res) => {
     const { nombre, duracion, costo } = req.body;
+
     try {
       const newPlan = await Plans.create({ nombre, duracion, costo });
+
       res.status(201).json(newPlan);
     } catch (error) {
       console.error(error);
