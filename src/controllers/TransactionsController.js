@@ -1,4 +1,4 @@
-const { Transactions } = require("../models/planes");
+const { Transactions } = require("../models/registro_transferencia");
 
 const transactionsController = {
   getAllTransactions: async (req, res) => {
@@ -27,10 +27,17 @@ const transactionsController = {
   },
 
   createTransaction: async (req, res) => {
-    const { nombre, duracion, costo } = req.body;
+    const { concepto, id_usuario_emisor, monto, id_usuario_receptor, fecha } =
+      req.body;
 
     try {
-      const newTransaction = await Transactions.create({ nombre, duracion, costo });
+      const newTransaction = await Transactions.create({
+        concepto,
+        id_usuario_emisor,
+        monto,
+        id_usuario_receptor,
+        fecha,
+      });
 
       res.status(201).json(newTransaction);
     } catch (error) {
@@ -41,12 +48,21 @@ const transactionsController = {
 
   updateTransaction: async (req, res) => {
     const { id } = req.params;
-    const { nombre, duracion, costo } = req.body;
+    const { concepto, id_usuario_emisor, monto, id_usuario_receptor, fecha } =
+      req.body;
     try {
       const transaction = await Transactions.findByPk(id);
       if (transaction) {
-        await transaction.update({ nombre, duracion, costo });
-        res.status(200).json({ message: "Transaccion actualizada exitosamente" });
+        await transaction.update({
+          concepto,
+          id_usuario_emisor,
+          monto,
+          id_usuario_receptor,
+          fecha,
+        });
+        res
+          .status(200)
+          .json({ message: "Transaccion actualizada exitosamente" });
       } else {
         res.status(404).json({ message: "Transaccion no encontrada" });
       }
