@@ -1,9 +1,9 @@
-const { Plans } = require("../models/planes");
+const { planes } = require("../models/init-models");
 
 const plansController = {
   getAllPlans: async (req, res) => {
     try {
-      const plans = await Plans.findAll();
+      const plans = await planes.findAll();
       res.status(200).json(plans);
     } catch (error) {
       console.error(error);
@@ -14,7 +14,7 @@ const plansController = {
   getPlanById: async (req, res) => {
     const { id } = req.params;
     try {
-      const plan = await Plans.findByPk(id);
+      const plan = await planes.findByPk(id);
       if (plan) {
         res.status(200).json(plan);
       } else {
@@ -30,7 +30,7 @@ const plansController = {
     const { nombre, duracion, costo } = req.body;
 
     try {
-      const newPlan = await Plans.create({ nombre, duracion, costo });
+      const newPlan = await planes.create({ nombre, duracion, costo });
 
       res.status(201).json(newPlan);
     } catch (error) {
@@ -43,7 +43,7 @@ const plansController = {
     const { id } = req.params;
     const { nombre, duracion, costo } = req.body;
     try {
-      const plan = await Plans.findByPk(id);
+      const plan = await planes.findByPk(id);
       if (plan) {
         await plan.update({ nombre, duracion, costo });
         res.status(200).json({ message: "Plan actualizado exitosamente" });
@@ -59,7 +59,7 @@ const plansController = {
   deletePlan: async (req, res) => {
     const { id } = req.params;
     try {
-      const plan = await Plans.findByPk(id);
+      const plan = await planes.findByPk(id);
       if (plan) {
         await plan.destroy();
         res.status(200).json({ message: "Plan eliminado exitosamente" });

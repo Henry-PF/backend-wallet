@@ -36,13 +36,22 @@ async function initModels(sequelize) {
   var planes_usuarios = await _planes_usuarios(sequelize, DataTypes);
   var registro_recarga = await _registro_recarga(sequelize, DataTypes);
   var registro_retiro = await _registro_retiro(sequelize, DataTypes);
-  var registro_transferencia = await _registro_transferencia(sequelize, DataTypes);
+  var registro_transferencia = await _registro_transferencia(
+    sequelize,
+    DataTypes
+  );
   var tipo_bolsillo = await _tipo_bolsillo(sequelize, DataTypes);
-  var saldo_bolsillo_global = await _saldo_bolsillo_global(sequelize, DataTypes);
+  var saldo_bolsillo_global = await _saldo_bolsillo_global(
+    sequelize,
+    DataTypes
+  );
   var testimony = await _testimony(sequelize, DataTypes);
   var usuarios_bolsillo = await _usuarios_bolsillo(sequelize, DataTypes);
   var usuarios_contacto = await _usuarios_contacto(sequelize, DataTypes);
-  var usuarios_verificacion = await _usuarios_verificacion(sequelize, DataTypes);
+  var usuarios_verificacion = await _usuarios_verificacion(
+    sequelize,
+    DataTypes
+  );
 
   saldo_bolsillo_global.belongsToMany(usuarios, {
     as: "id_usuario_usuarios",
