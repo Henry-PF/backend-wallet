@@ -16,7 +16,7 @@ var _registro_retiro = require("./registro_retiro");
 var _registro_transferencia = require("./registro_transferencia");
 var _tipo_bolsillo = require("./tipo_bolsillo");
 var _saldo_bolsillo_global = require("./saldo_bolsillo_global");
-var _testimony = require("./testimony");
+
 var _usuarios_bolsillo = require("./usuarios_bolsillo");
 var _usuarios_contacto = require("./usuarios_contacto");
 var _usuarios_verificacion = require("./usuarios_verificacion");
@@ -45,7 +45,6 @@ async function initModels(sequelize) {
     sequelize,
     DataTypes
   );
-  var testimony = await _testimony(sequelize, DataTypes);
   var usuarios_bolsillo = await _usuarios_bolsillo(sequelize, DataTypes);
   var usuarios_contacto = await _usuarios_contacto(sequelize, DataTypes);
   var usuarios_verificacion = await _usuarios_verificacion(
@@ -130,14 +129,7 @@ async function initModels(sequelize) {
     as: "id_tipo_usuario_tipo_usuario",
     foreignKey: "id_tipo_usuario",
   });
-  usuarios.hasMany(testimony, {
-    as: "testimony",
-    foreignKey: "id_usuarios",
-  });
-  testimony.belongsTo(usuarios, {
-    as: "usuarios",
-    foreignKey: "id_usuarios",
-  });
+
   tipo_usuario.hasMany(usuarios, {
     as: "usuarios",
     foreignKey: "id_tipo_usuario",
@@ -246,7 +238,6 @@ async function initModels(sequelize) {
     registro_retiro,
     registro_transferencia,
     saldo_bolsillo_global,
-    testimony,
     tipo_bolsillo,
     tipo_usuario,
     usuarios,
