@@ -1,4 +1,4 @@
-const { Services } = require("../models/services"); // Ajusta la ruta según tu estructura
+const { Services } = require("../db.js"); // Ajusta la ruta según tu estructura
 
 const servicesController = {
   getAllServices: async (req, res) => {
