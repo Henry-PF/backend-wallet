@@ -1,4 +1,4 @@
-const { Transactions } = require("../models/registro_transferencia");
+const { Transactions } = require("../db.js");
 
 const transactionsController = {
   getAllTransactions: async (req, res) => {
