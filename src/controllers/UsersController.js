@@ -1,9 +1,7 @@
 const {usuarios,datos_persona,tipo_usuario,usuarios_verificacion} = require("../db");
 const { Op } = require("sequelize");
-const {createHash} = require("crypto");
 const jwt = require("jsonwebtoken");
-const secretKey = process.env.SECRETKEY;
-const Sequelize = require("sequelize");
+const bcrypt = require("bcrypt")
 
 exports.create= async (data)=>{
     let result={};
@@ -17,10 +15,15 @@ exports.create= async (data)=>{
                 direccion: data.dataCliente.direccion,
                 telefono: data.dataCliente.telefono
             }
-            const hash=createHash('sha256')
+            let hashF= bcrypt.hash(data.contra, 10).then(hash => {
+                return hash;
+            })
             let dtaUsuario={
                 nombre_usuario:data.usuario,
-	            contrasena:hash.digest(data.contra)
+	            contrasena:hashF,
+                id_tipo_usuario:2,
+                isverified:false,
+                isactivo:true
             }
             //Verficacion si los datos de la persona ya existe
             const personaExiste = await datos_persona.findOne({where:{[Op.eq]:{dni:dtaPersona.dni}}})
@@ -33,9 +36,15 @@ exports.create= async (data)=>{
             }
             //Crear usuario
             user=await usuarios.create(dtaUsuario);
+            if (user) {
+                result.data    = user;
+                result.message = "Usuario registrado con éxito";
+            } else {
+                throw new Error("Error al intentar registrar el usuario");
+            }
             
         }else{
-
+            throw new Error("Error faltan datos para proceder con el registro");
         }
     } catch (error) {
         result.error=error.message;
@@ -80,6 +89,43 @@ exports.FindOne= async (id)=>{
             }
         }).then((dta)=>{
             result.data = dta;
+        });
+        
+    } catch (error) {
+        console.log(error)
+        result.error=error.message;
+    }
+    return result;
+}
+
+exports.login= async (data)=>{
+    let result={};
+    try {
+        await usuarios.FindOne({
+            include:[{model: datos_persona},{model: tipo_usuario}],
+            where:{
+                [Op.or]:{
+                    nombre_usuario:{
+                        [Op.eq]:data.user
+                    },
+                    email:{
+                        [Op.eq]:data.user
+                    }
+                }
+                
+            }
+        }).then((dta)=>{
+            if(!bcryptjs.compareSync(data.pass,dta[0].contrasena)){
+                throw new Error('Contraseña incorrecta');
+            }else{
+                const secretKey = "mZ1IWqsOvcTD31fPsDLig8TZ7v8nkTTB";
+                const token = jwt.sign({ userId: user.id }, secretKey, {
+                    expiresIn: "1h",
+                });
+                result.data     = dta;
+                result.token    = token;
+            }
+            
         });
         
     } catch (error) {
