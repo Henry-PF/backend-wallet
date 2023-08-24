@@ -21,36 +21,27 @@ var _usuarios_bolsillo = require("./usuarios_bolsillo");
 var _usuarios_contacto = require("./usuarios_contacto");
 var _usuarios_verificacion = require("./usuarios_verificacion");
 
-async function initModels(sequelize) {
-  var datos_persona = await _datos_persona(sequelize, DataTypes);
-  var tipo_usuario = await _tipo_usuario(sequelize, DataTypes);
-  var usuarios = await _usuarios(sequelize, DataTypes);
-  var log_transacciones = await _log_transacciones(sequelize, DataTypes);
-  var modulos = await _modulos(sequelize, DataTypes);
-  var password_reset = await _password_reset(sequelize, DataTypes);
-  var permisos = await _permisos(sequelize, DataTypes);
-  var permisos_modulos = await _permisos_modulos(sequelize, DataTypes);
-  var permisos_usuarios = await _permisos_usuarios(sequelize, DataTypes);
-  var planes = await _planes(sequelize, DataTypes);
-  var planes_detalles = await _planes_detalles(sequelize, DataTypes);
-  var planes_usuarios = await _planes_usuarios(sequelize, DataTypes);
-  var registro_recarga = await _registro_recarga(sequelize, DataTypes);
-  var registro_retiro = await _registro_retiro(sequelize, DataTypes);
-  var registro_transferencia = await _registro_transferencia(
-    sequelize,
-    DataTypes
-  );
-  var tipo_bolsillo = await _tipo_bolsillo(sequelize, DataTypes);
-  var saldo_bolsillo_global = await _saldo_bolsillo_global(
-    sequelize,
-    DataTypes
-  );
-  var usuarios_bolsillo = await _usuarios_bolsillo(sequelize, DataTypes);
-  var usuarios_contacto = await _usuarios_contacto(sequelize, DataTypes);
-  var usuarios_verificacion = await _usuarios_verificacion(
-    sequelize,
-    DataTypes
-  );
+function initModels(sequelize) {
+  var datos_persona = _datos_persona(sequelize, DataTypes);
+  var tipo_usuario = _tipo_usuario(sequelize, DataTypes);
+  var usuarios = _usuarios(sequelize, DataTypes);
+  var log_transacciones = _log_transacciones(sequelize, DataTypes);
+  var modulos = _modulos(sequelize, DataTypes);
+  var password_reset = _password_reset(sequelize, DataTypes);
+  var permisos = _permisos(sequelize, DataTypes);
+  var permisos_modulos = _permisos_modulos(sequelize, DataTypes);
+  var permisos_usuarios = _permisos_usuarios(sequelize, DataTypes);
+  var planes = _planes(sequelize, DataTypes);
+  var planes_detalles = _planes_detalles(sequelize, DataTypes);
+  var planes_usuarios = _planes_usuarios(sequelize, DataTypes);
+  var registro_recarga = _registro_recarga(sequelize, DataTypes);
+  var registro_retiro = _registro_retiro(sequelize, DataTypes);
+  var registro_transferencia = _registro_transferencia(sequelize, DataTypes);
+  var tipo_bolsillo = _tipo_bolsillo(sequelize, DataTypes);
+  var saldo_bolsillo_global = _saldo_bolsillo_global(sequelize, DataTypes);
+  var usuarios_bolsillo = _usuarios_bolsillo(sequelize, DataTypes);
+  var usuarios_contacto = _usuarios_contacto(sequelize, DataTypes);
+  var usuarios_verificacion = _usuarios_verificacion(sequelize, DataTypes);
 
   saldo_bolsillo_global.belongsToMany(usuarios, {
     as: "id_usuario_usuarios",
