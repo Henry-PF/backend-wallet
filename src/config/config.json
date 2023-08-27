@@ -1,30 +1,30 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "23124156",
-    "database": "pf_henry",
-    "host": "localhost",
+    "username": "db_user",
+    "password": "KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg",
+    "database": "wallet_qu0e",
+    "host": "dpg-cjbbrvrbq8nc73dotlc0-a",
     "dialect": "postgresql",
     "use_env_variable": true,
-    "url": "postgresql://postgres:23124156@localhost:/pf_henry"
+    "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e"
   },
   "test": {
-    "username": "postgres",
-    "password": "bEp2gg5jWBbhCRSSRVv3",
-    "database": "railway",
-    "host": "containers-us-west-50.railway.app",
+    "username": "db_user",
+    "password": "KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg",
+    "database": "wallet_qu0e",
+    "host": "dpg-cjbbrvrbq8nc73dotlc0-a",
     "dialect": "postgresql",
     "use_env_variable": true,
-    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+    "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e"
   },
 
   "production": {
-    "username": "postgres",
-    "password": "bEp2gg5jWBbhCRSSRVv3",
-    "database": "railway",
-    "host": "containers-us-west-50.railway.app",
+    "username": "db_user",
+    "password": "KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg",
+    "database": "wallet_qu0e",
+    "host": "dpg-cjbbrvrbq8nc73dotlc0-a",
     "dialect": "postgresql",
     "use_env_variable": true,
-    "url": "postgresql://postgres:bEp2gg5jWBbhCRSSRVv3@containers-us-west-50.railway.app:7329/railway"
+    "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e"
   }
 }
