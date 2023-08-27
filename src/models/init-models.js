@@ -1,5 +1,7 @@
 var DataTypes = require("sequelize").DataTypes;
 var _datos_persona = require("./datos_persona");
+var _tipo_usuario = require("./tipo_usuario");
+var _usuarios = require("./usuarios");
 var _log_transacciones = require("./log_transacciones");
 var _modulos = require("./modulos");
 var _password_reset = require("./password_reset");
@@ -12,10 +14,9 @@ var _planes_usuarios = require("./planes_usuarios");
 var _registro_recarga = require("./registro_recarga");
 var _registro_retiro = require("./registro_retiro");
 var _registro_transferencia = require("./registro_transferencia");
-var _saldo_bolsillo_global = require("./saldo_bolsillo_global");
 var _tipo_bolsillo = require("./tipo_bolsillo");
-var _tipo_usuario = require("./tipo_usuario");
-var _usuarios = require("./usuarios");
+var _saldo_bolsillo_global = require("./saldo_bolsillo_global");
+var _testimony = require("./testimony");
 var _usuarios_bolsillo = require("./usuarios_bolsillo");
 var _usuarios_contacto = require("./usuarios_contacto");
 var _usuarios_verificacion = require("./usuarios_verificacion");
@@ -100,6 +101,7 @@ function initModels(sequelize) {
     registro_retiro,
     registro_transferencia,
     saldo_bolsillo_global,
+    testimony,
     tipo_bolsillo,
     tipo_usuario,
     usuarios,
