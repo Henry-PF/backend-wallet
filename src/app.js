@@ -3,8 +3,6 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-const plansRouter = require("./routes/plansRouter");
-const testimonyRouter = require("./routes/testimonyRouter.js");
 
 const fileupload = require("express-fileupload");
 
@@ -38,8 +36,6 @@ server.use((req, res, next) => {
 });
 
 server.use("/", routes);
-server.use("/plans", plansRouter);
-server.use("/testimony", testimonyRouter);
 
 server.use((err, req, res, next) => {
   const status = err.status || 500;
