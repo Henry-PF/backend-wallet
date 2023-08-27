@@ -19,7 +19,11 @@ if (config.use_env_variable) {
     {
       logging: true,
       native: false,
-      dialectOptions: {}
+      dialectOptions: {
+        ssl: {
+          require: 'true'
+        }
+      }
     }
   );
 } else {
