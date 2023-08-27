@@ -6,7 +6,7 @@
     "host": "dpg-cjbbrvrbq8nc73dotlc0-a",
     "dialect": "postgresql",
     "use_env_variable": true,
-    "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e"
+    "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e?ssl=true"
   },
   "test": {
     "username": "db_user",
