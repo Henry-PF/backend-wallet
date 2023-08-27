@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {findAll} = require("../handlers/UsersHandler")
-
+const { findAll } = require("../handlers/UsersHandler")
 
 router.get("/getAll", findAll);
 
