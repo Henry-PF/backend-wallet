@@ -17,7 +17,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
     {
-      logging: true,
+      logging: false,
       native: false,
       dialectOptions: {
         ssl: {
