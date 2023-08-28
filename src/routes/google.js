@@ -3,8 +3,8 @@ const passport = require('passport');
 
 const router = express.Router();
 
-const successLogin = 'http://localhost:3000/dashboard'
-const failureLogin = 'http://localhost:3000/login'
+const successLogin = 'https://web-app-nav5.onrender.com/dashboard'
+const failureLogin = 'https://web-app-nav5.onrender.com/login'
 
 router.get('/login', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
@@ -21,7 +21,7 @@ router.get('/callback', passport.authenticate('google', {
 router.get('/logout', (req, res) => {
     req.session.destroy(function () {
         res.clearCookie('connect.sid');
-        res.redirect('http://localhost:3000/');
+        res.redirect('https://web-app-nav5.onrender.com');
     });
 })
 
