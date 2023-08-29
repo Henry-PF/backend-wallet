@@ -17,6 +17,7 @@ var _registro_transferencia = require("./registro_transferencia");
 var _tipo_bolsillo = require("./tipo_bolsillo");
 var _saldo_bolsillo_global = require("./saldo_bolsillo_global");
 var _testimony = require("./testimony");
+var _services = require("./services");
 var _usuarios_bolsillo = require("./usuarios_bolsillo");
 var _usuarios_contacto = require("./usuarios_contacto");
 var _usuarios_verificacion = require("./usuarios_verificacion");
@@ -39,6 +40,8 @@ function initModels(sequelize) {
   var registro_transferencia = _registro_transferencia(sequelize, DataTypes);
   var tipo_bolsillo = _tipo_bolsillo(sequelize, DataTypes);
   var saldo_bolsillo_global = _saldo_bolsillo_global(sequelize, DataTypes);
+  var testimony = _testimony(sequelize, DataTypes);
+  var services = _services(sequelize, DataTypes);
   var usuarios_bolsillo = _usuarios_bolsillo(sequelize, DataTypes);
   var usuarios_contacto = _usuarios_contacto(sequelize, DataTypes);
   var usuarios_verificacion = _usuarios_verificacion(sequelize, DataTypes);
@@ -120,7 +123,22 @@ function initModels(sequelize) {
     as: "id_tipo_usuario_tipo_usuario",
     foreignKey: "id_tipo_usuario",
   });
-
+  usuarios.hasMany(testimony, {
+    as: "testimony",
+    foreignKey: "id_usuarios",
+  });
+  testimony.belongsTo(usuarios, {
+    as: "usuarios",
+    foreignKey: "id_usuarios",
+  });
+  usuarios.hasMany(services, {
+    as: "services",
+    foreignKey: "id_usuarios",
+  });
+  services.belongsTo(usuarios, {
+    as: "usuarios",
+    foreignKey: "id_usuarios",
+  });
   tipo_usuario.hasMany(usuarios, {
     as: "usuarios",
     foreignKey: "id_tipo_usuario",
@@ -230,6 +248,7 @@ function initModels(sequelize) {
     registro_transferencia,
     saldo_bolsillo_global,
     testimony,
+    services,
     tipo_bolsillo,
     tipo_usuario,
     usuarios,
