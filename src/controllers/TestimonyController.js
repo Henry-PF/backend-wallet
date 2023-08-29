@@ -1,9 +1,9 @@
-const db = require("../models/testimony"); // Importar el modelo de base de datos
+const {Testimony}= require("../db"); // Importar el modelo de base de datos
 
 const testimonyController = {
   createTestimony: async (req, res) => {
     try {
-      const newTestimony = await db.Testimony.create(req.body);
+      const newTestimony = await Testimony.create(req.body);
       res.status(201).json(newTestimony);
     } catch (error) {
       res.status(500).json({ error: "No se pudo crear el testimonio." });
@@ -12,7 +12,7 @@ const testimonyController = {
 
   getAllTestimonials: async (req, res) => {
     try {
-      const testimonials = await db.Testimony.findAll();
+      const testimonials = await Testimony.findAll();
       res.json(testimonials);
     } catch (error) {
       res
@@ -23,7 +23,7 @@ const testimonyController = {
 
   getTestimonyById: async (req, res) => {
     try {
-      const testimony = await db.Testimony.findByPk(req.params.id);
+      const testimony = await Testimony.findByPk(req.params.id);
       if (testimony) {
         res.json(testimony);
       } else {
@@ -36,7 +36,7 @@ const testimonyController = {
 
   updateTestimony: async (req, res) => {
     try {
-      const testimony = await db.Testimony.findByPk(req.params.id);
+      const testimony = await Testimony.findByPk(req.params.id);
       if (testimony) {
         await testimony.update(req.body);
         res.json(testimony);
@@ -50,7 +50,7 @@ const testimonyController = {
 
   deleteTestimony: async (req, res) => {
     try {
-      const testimony = await db.Testimony.findByPk(req.params.id);
+      const testimony = await Testimony.findByPk(req.params.id);
       if (testimony) {
         await testimonio.destroy();
         res.json({ message: "Testimonio eliminado con éxito." });

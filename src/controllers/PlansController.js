@@ -1,4 +1,4 @@
-const { planes } = require("../models/init-models");
+const { planes } = require("../db");
 
 const plansController = {
   getAllPlans: async (req, res) => {
