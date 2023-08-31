@@ -12,6 +12,7 @@ cloudinary.config({
 
 exports.create= async (data)=>{
     let result   = {};
+    let saldo = 0;
     let imgs     = data.files;
     let dataUser = data.body;
     let imgCloudinary={};
@@ -85,6 +86,7 @@ exports.create= async (data)=>{
             throw new Error("Error faltan datos para proceder con el registro");
         }
     } catch (error) {
+        console.log(error.message);
         result.error=error.message;
     }
     return result;

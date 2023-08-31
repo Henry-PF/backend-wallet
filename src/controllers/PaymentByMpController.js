@@ -1,6 +1,7 @@
 const mercadoPago = require("mercadopago");
 const axios = require("axios");
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+const { usuario_bolsillo, saldo_bolsillo_global, tipo_bolsillo} = require("../db");
 
 mercadoPago.configure({
     access_token: ACCESS_TOKEN
@@ -59,6 +60,8 @@ const paymenyByMpController = {
     si el status es approved se tendria que crear un (registro de transferencia)
     y en usuario_bolsillo el saldo tendria que ser modificado sumandole el montoIngresado
     */
+
+    
 
     return res.status(201).redirect("http://localhost:3000/dashboard/mi_billetera");
     } catch (error) {
