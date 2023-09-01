@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const { planes } = require("../db.js");
+=======
+const { planes } = require("../db");
+>>>>>>> 75c8f6d80388e47193bd285408ac7d9e0a4bc223
 
 const plansController = {
   getAllPlans: async (req, res) => {
