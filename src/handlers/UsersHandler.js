@@ -1,31 +1,32 @@
-const { create,update,findAll,FindID,Delete} = require("../controllers/UsersController");
-exports.UserCreate= async (req, res) => {
-    let result={};
+const { create, update, findAll, FindID, Delete } = require("../controllers/UsersController");
+
+exports.UserCreate = async (req, res) => {
+    let result = {};
     try {
-       result = await create(req);
-       if(result){
+        result = await create(req);
+        if (result) {
             res.status(200).json(result);
-       }
+        }
     } catch (error) {
         console.log(error)
         return res.status(500).json({ error: { message: "Error al registrar el usuario." } });
     }
 }
 
-exports.UserUpdate= async (req, res) => {
-    let result={};
+exports.UserUpdate = async (req, res) => {
+    let result = {};
     try {
-       
+
     } catch (error) {
         return res.status(500).json({ error: { message: "Error al actualizar el usuario." } });
     }
 }
 
-exports.findAll= async (req, res) => {
-    let result={};
+exports.findAll = async (req, res) => {
+    let result = {};
     try {
         result = await findAll();
-        if(result){
+        if (result) {
             res.status(200).json(result);
         }
     } catch (error) {
@@ -33,11 +34,11 @@ exports.findAll= async (req, res) => {
     }
 }
 
-exports.findId= async (req, res) => {
-    let result={};
+exports.findId = async (req, res) => {
+    let result = {};
     try {
         result = await FindID(req.params.id);
-        if(result){
+        if (result) {
             res.status(200).json(result);
         }
     } catch (error) {
@@ -45,11 +46,11 @@ exports.findId= async (req, res) => {
     }
 }
 
-exports.Userdelete = async (req,res)=>{
-    let result={};
+exports.Userdelete = async (req, res) => {
+    let result = {};
     try {
         result = await Delete(req.body.id);
-        if(result){
+        if (result) {
             res.status(200).json(result);
         }
     } catch (error) {
