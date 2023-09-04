@@ -38,7 +38,7 @@ exports.create = async (data) => {
                 isactivo: true
             }
             //Verficacion si los datos de la persona ya existe
-            const personaExiste = await datos_persona.findOne({ where: { dni: { [Op.eq]: dtaPersona.dni } } })
+            const personaExiste = await datos_persona.findOne({ where: { correo_electronico: { [Op.eq]: dtaPersona.correo_electronico } } })
             if (!personaExiste) {
                 data_p = await datos_persona.create(dtaPersona).then(data => {
                     dtaUsuario.id_persona = data.id
