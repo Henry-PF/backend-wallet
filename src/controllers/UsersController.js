@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary");
+const { default: axios } = require("axios");
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -49,6 +50,8 @@ exports.create= async (data)=>{
             //Crear usuario
             user=await usuarios.create(dtaUsuario);
             if (user) {
+                const dataToSend = {id: `${user.id}`}
+                await axios.post(`http://localhost:3001/usuarios/bolsillo`, dataToSend);
                 result.data    = user;
                 result.message = "Usuario registrado con éxito";
             } else {
@@ -79,6 +82,7 @@ exports.create= async (data)=>{
             if (usuariosVerifi) {
                 result.data    = user;
                 result.message = "Usuario registrado con éxito";
+
             } else {
                 throw new Error("Error al intentar guardar las imagenes del usuario");
             }

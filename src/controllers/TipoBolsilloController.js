@@ -1,13 +1,13 @@
 const { tipo_bolsillo } = require("../db.js");
-// const tipo_bolsillo = require("../models/tipo_bolsillo.js");
+const { Op } = require("sequelize");
 
 const TipoBolsilloController = {
 
     getTipoBolsillo: async (req, res) => {
-    const { id } = req.params;
+        const idUser = Number(req.params.id);
     try {
-        return res.status(201).send("HOLA COMO ESTAS");
-
+        const FindtipoBolsillo = await tipo_bolsillo.findOne({where: {id:{[Op.eq]: idUser}}});
+        return res.status(201).send(FindtipoBolsillo);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error al obtener el Tipo Bolsillo" });
