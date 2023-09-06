@@ -45,9 +45,16 @@ function initModels(sequelize) {
   var usuarios_bolsillo = _usuarios_bolsillo(sequelize, DataTypes);
   var usuarios_contacto = _usuarios_contacto(sequelize, DataTypes);
   var usuarios_verificacion = _usuarios_verificacion(sequelize, DataTypes);
-
+  
   saldo_bolsillo_global.belongsToMany(usuarios, {through: usuarios_bolsillo,foreignKey: "id_bolsillo",otherKey: "id_usuario"});
+  saldo_bolsillo_global.hasMany(usuarios_bolsillo, {foreignKey: "id_bolsillo"});
+  saldo_bolsillo_global.belongsTo(tipo_bolsillo, {foreignKey: "id_tipo_bolsillo"});
+  tipo_bolsillo.hasMany(saldo_bolsillo_global, {foreignKey: "id_tipo_bolsillo"});
   usuarios.belongsToMany(saldo_bolsillo_global, {through: usuarios_bolsillo,foreignKey: "id_usuario",otherKey: "id_bolsillo"});
+  usuarios.hasMany(usuarios_bolsillo, {foreignKey: "id_usuario"});
+  usuarios_bolsillo.belongsTo(saldo_bolsillo_global, {foreignKey: "id_bolsillo"});
+  usuarios_bolsillo.belongsTo(usuarios, {foreignKey: "id_usuario"});
+  //-------------------------------------------------------------------------
   usuarios.belongsTo(datos_persona, {foreignKey: "id_persona"});
   datos_persona.hasMany(usuarios, { foreignKey: "id_persona" });
   permisos_modulos.belongsTo(modulos, {foreignKey: "id_modulo"});
@@ -60,10 +67,6 @@ function initModels(sequelize) {
   planes.hasMany(planes_detalles, {foreignKey: "id_plan"});
   planes_usuarios.belongsTo(planes, {foreignKey: "id_plan"});
   planes.hasMany(planes_usuarios, {foreignKey: "id_plan"});
-  usuarios_bolsillo.belongsTo(saldo_bolsillo_global, {foreignKey: "id_bolsillo"});
-  saldo_bolsillo_global.hasMany(usuarios_bolsillo, {foreignKey: "id_bolsillo"});
-  saldo_bolsillo_global.belongsTo(tipo_bolsillo, {foreignKey: "id_tipo_bolsillo"});
-  tipo_bolsillo.hasMany(saldo_bolsillo_global, {foreignKey: "id_tipo_bolsillo"});
   usuarios.belongsTo(tipo_usuario, {foreignKey: "id_tipo_usuario"});
   usuarios.hasMany(testimony, {foreignKey: "id_usuarios"});
   testimony.belongsTo(usuarios, {foreignKey: "id_usuarios"});
@@ -84,8 +87,6 @@ function initModels(sequelize) {
   usuarios.hasMany(registro_transferencia, {foreignKey: "id_usuario_emisor"});
   registro_transferencia.belongsTo(usuarios, {foreignKey: "id_usuario_receptor"});
   usuarios.hasMany(registro_transferencia, {foreignKey: "id_usuario_receptor"});
-  usuarios_bolsillo.belongsTo(usuarios, {foreignKey: "id_usuario"});
-  usuarios.hasMany(usuarios_bolsillo, {foreignKey: "id_usuario"});
   usuarios_contacto.belongsTo(usuarios, {foreignKey: "id_usuario_contacto"});
   usuarios.hasMany(usuarios_contacto, {foreignKey: "id_usuario_contacto"});
   usuarios_contacto.belongsTo(usuarios, {foreignKey: "id_usuario"});
