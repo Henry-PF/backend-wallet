@@ -17,7 +17,6 @@
     "use_env_variable": true,
     "url": "postgres://db_user:KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg@dpg-cjbbrvrbq8nc73dotlc0-a.oregon-postgres.render.com/wallet_qu0e"
   },
-
   "production": {
     "username": "db_user",
     "password": "KEeQscz1sGmOzmBGtwliGXUJpBIWn9Rg",

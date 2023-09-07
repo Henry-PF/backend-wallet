@@ -17,7 +17,58 @@ const sendEmail = async (to, subject, text, html) => {
             to,
             subject,
             text,
-            html,
+            html: `
+            <html>
+            <head>
+                <style>
+                    .body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        margin: 0;
+                        padding: 0;
+                    }
+            
+                    .container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: #fff;
+                    }
+            
+                    h1 {
+                        color: #007bff;
+                    }
+            
+                    p {
+                        font-size: 16px;
+                        line-height: 1.5;
+                        color: #333;
+                    }
+            
+                    ul {
+                        list-style-type: none;
+                        margin-left: 20px;
+                    }
+            
+                    li {
+                        margin-bottom: 5px;
+                    }
+            
+                    strong {
+                        font-weight: bold;
+                    }
+            
+                    .contact {
+                        margin-top: 20px;
+                        font-size: 14px;
+                    }
+                </style>
+            </head>
+            <body>
+                ${html}
+            </body>
+            </html>
+        `,
         };
 
         const result = await transporter.sendMail(info);

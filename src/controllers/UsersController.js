@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary");
 const sendEmail = require('../config/mailer');
-const axios = require("axios");
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -60,16 +59,19 @@ exports.create= async (data)=>{
                     dtaPersona.correo_electronico,
                     "Bienvenido a SmartPay ✔",
                     "<h1>Bienvenido a SmartPay</h1>",
-                    `<p>Hola ${dtaPersona.nombre},</p>
-                        <p>Gracias por registrarte en SmartPay, tu billetera virtual. Estamos emocionados de tenerte como parte de nuestra comunidad.</p>
-                    <p>
-                    A continuación, encontrarás algunos detalles sobre tu cuenta:
-                    </p>
+                    `<div class="container">
+                    <img src="https://i.postimg.cc/cJMxcbNR/logo-wallet.jpg" alt='SmartPay-logo'/>
+                    <h1>Bienvenido a SmartPay</h1>
+                    <p>Hola ${dtaPersona.nombre},</p>
+                    <p>Gracias por registrarte en <strong>SmartPay</strong>, tu billetera virtual. Estamos emocionados de tenerte como parte de nuestra comunidad.</p>
+                    <p>A continuación, encontrarás algunos detalles sobre tu cuenta:</p>
                     <ul>
                         <li>Nombre de usuario: ${dataUser.usuario}</li>
                     </ul>
                     <p>¡Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con nuestro equipo de soporte!</p>
-                    <p>¡Esperamos que disfrutes de tu experiencia con SmartPay!</p>`
+                    <p>¡Esperamos que disfrutes de tu experiencia con SmartPay!</p>
+                    <p class="contact">Para obtener asistencia, contáctanos en support@smartpay.com</p>
+                    </div>`
                 );
             } else {
                 throw new Error("Error al intentar registrar el usuario");
@@ -272,3 +274,32 @@ exports.findEmail =async (data)=>{
     }
     return result;
 }
+exports.filterUsers = async (filters) => {
+    const whereClause = {};
+
+    if (filters.usuario) {
+        whereClause.nombre_usuario = {
+            [Op.iLike]: `%${filters.usuario}%`, // Cambio: Usar Op.iLike
+        };
+    }
+
+    if (filters.nombre) {
+        whereClause['$datos_persona.nombre$'] = {
+            [Op.iLike]: `%${filters.nombre}%`,
+        };
+    }
+
+    if (filters.email) {
+        whereClause['$datos_persona.correo_electronico$'] = {
+            [Op.iLike]: `%${filters.email}%`,
+        };
+    }
+
+    const filteredUsers = await usuarios.findAll({
+        attributes: { exclude: ['contrasena', 'id_persona', 'id_tipo_usuario'] },
+        where: whereClause,
+        include: [{ model: datos_persona }, { model: tipo_usuario }],
+    });
+
+    return filteredUsers;
+};

@@ -1,4 +1,4 @@
-const { create, update, findAll, FindID, Delete ,findEmail} = require("../controllers/UsersController");
+const { create, update, findAll, FindID, Delete ,findEmail,filterUsers} = require("../controllers/UsersController");
 
 exports.UserCreate = async (req, res) => {
     let result = {};
@@ -68,3 +68,20 @@ exports.Userdelete = async (req, res) => {
         return res.status(500).json({ error: { message: "Error al consultar la base de datos." } });
     }
 }
+
+exports.UserFilter = async (req, res) => {
+    const { usuario, nombre, email } = req.query;
+    const filters = {
+        usuario,
+        nombre,
+        email,
+    };
+
+    try {
+        const filteredUsers = await filterUsers(filters);
+        res.json(filteredUsers);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al filtrar usuarios" });
+    }
+};
