@@ -9,13 +9,13 @@ const initModels = require("./models/init-models");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/config/config.json")[env];
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
+const { DB_URL } = process.env;
 const db = [];
 
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(
-    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+    DB_URL,
     {
       logging: false,
       native: false,
