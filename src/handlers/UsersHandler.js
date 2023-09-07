@@ -1,4 +1,4 @@
-const { create, update, findAll, FindID, Delete ,findEmail,filterUsers} = require("../controllers/UsersController");
+const { create, update, findAll, FindID, Delete, findEmail, filterUsers } = require("../controllers/UsersController");
 
 exports.UserCreate = async (req, res) => {
     let result = {};
@@ -76,7 +76,7 @@ exports.UserFilter = async (req, res) => {
         nombre,
         email,
     };
-
+    console.log('datos de los filtros', filters);
     try {
         const filteredUsers = await filterUsers(filters);
         res.json(filteredUsers);

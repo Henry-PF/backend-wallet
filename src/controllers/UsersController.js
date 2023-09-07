@@ -1,5 +1,5 @@
-const {usuarios,datos_persona,tipo_usuario,usuarios_verificacion} = require("../db");
-const {createBolsillo} = require("../controllers/UsuarioBolsilloController")
+const { usuarios, datos_persona, tipo_usuario, usuarios_verificacion } = require("../db");
+const { createBolsillo } = require("../controllers/UsuarioBolsilloController")
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -12,10 +12,10 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
-exports.create= async (data)=>{
-    let result   = {};
+exports.create = async (data) => {
+    let result = {};
     let saldo = 0;
-    let imgs     = data.files;
+    let imgs = data.files;
     let dataUser = data.body;
     let imgCloudinary = {};
     try {
@@ -51,9 +51,9 @@ exports.create= async (data)=>{
             //Crear usuario
             user = await usuarios.create(dtaUsuario);
             if (user) {
-                const dataToSend = {id: `${user.id}`}
+                const dataToSend = { id: `${user.id}` }
                 await createBolsillo(dataToSend);
-                result.data    = user;
+                result.data = user;
                 result.message = "Usuario registrado con éxito";
                 await sendEmail(
                     dtaPersona.correo_electronico,
@@ -110,7 +110,7 @@ exports.create= async (data)=>{
         }
     } catch (error) {
         console.log(error.message);
-        result.error=error.message;
+        result.error = error.message;
     }
     console.log(result);
     return result;
@@ -243,27 +243,27 @@ exports.Delete = async (id) => {
     return result;
 }
 
-exports.findEmail =async (data)=>{
-    let result={};
+exports.findEmail = async (data) => {
+    let result = {};
     try {
-        if(data.email){
-            let dataUser = await datos_persona.findOne({ 
-                where: { 
-                    correo_electronico: { 
-                        [Op.eq]: data.email 
-                    } 
+        if (data.email) {
+            let dataUser = await datos_persona.findOne({
+                where: {
+                    correo_electronico: {
+                        [Op.eq]: data.email
+                    }
                 },
-                includes:[{model:usuarios}]
+                includes: [{ model: usuarios }]
             })
             console.log(dataUser);
             if (dataUser) {
-               result.data = dataUser;
-            }else{
+                result.data = dataUser;
+            } else {
                 result.error = {
                     message: "usuario no encontrado"
                 };
             }
-        }else{
+        } else {
             result.error = {
                 message: "falta el campo email"
             };
@@ -274,19 +274,29 @@ exports.findEmail =async (data)=>{
     }
     return result;
 }
+
 exports.filterUsers = async (filters) => {
     const whereClause = {};
 
     if (filters.usuario) {
         whereClause.nombre_usuario = {
-            [Op.iLike]: `%${filters.usuario}%`, // Cambio: Usar Op.iLike
+            [Op.iLike]: `%${filters.usuario}%`,
         };
     }
 
     if (filters.nombre) {
-        whereClause['$datos_persona.nombre$'] = {
-            [Op.iLike]: `%${filters.nombre}%`,
-        };
+        whereClause[Op.or] = [
+            {
+                '$datos_persona.nombre$': {
+                    [Op.iLike]: `%${filters.nombre}%`,
+                },
+            },
+            {
+                '$datos_persona.apellido$': {
+                    [Op.iLike]: `%${filters.nombre}%`,
+                },
+            },
+        ];
     }
 
     if (filters.email) {
