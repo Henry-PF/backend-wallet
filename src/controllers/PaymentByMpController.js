@@ -30,9 +30,9 @@ const paymenyByMpController = {
                         }
                     ],
                     back_urls: {
-                        success: `http://localhost:3000/dashboard/mi_billetera`,
-                        failure: "http://localhost:3001/paymentByMp/failure",
-                        pending: "http://localhost:3001/paymentByMp/pending"
+                        success: `https://web-app-nav5.onrender.com/dashboard/mi_billetera`,
+                        failure: "https://backend-6du3.onrender.com/paymentByMp/failure",
+                        pending: "https://backend-6du3.onrender.com/paymentByMp/pending"
                     },
                     notification_url: "https://web-app-nav5.onrender.com/payment/webhook"
                 };
