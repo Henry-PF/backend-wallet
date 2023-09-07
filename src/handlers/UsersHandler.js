@@ -11,13 +11,7 @@ exports.UserCreate = async (req, res) => {
         console.log(error)
         return res.status(500).json({ error: { message: "Error al registrar el usuario." } });
     }
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ error: { message: "Error al registrar el usuario." } });
-  }
-};
+}
 
 exports.UserUpdate = async (req, res) => {
     let result = {};
@@ -38,12 +32,7 @@ exports.findAll = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: { message: "Error al consultar la data del usuario." } });
     }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: { message: "Error al consultar la data del usuario." } });
-  }
-};
+}
 
 exports.findId = async (req, res) => {
     let result = {};
@@ -55,12 +44,7 @@ exports.findId = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: { message: "Error al consultar la base de datos." } });
     }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: { message: "Error al consultar la base de datos." } });
-  }
-};
+}
 
 exports.Userdelete = async (req, res) => {
     let result = {};
@@ -72,9 +56,4 @@ exports.Userdelete = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: { message: "Error al consultar la base de datos." } });
     }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: { message: "Error al consultar la base de datos." } });
-  }
-};
+}
