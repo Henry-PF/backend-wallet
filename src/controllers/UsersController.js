@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary");
 const sendEmail = require('../config/mailer')
+const axios = require("axios");
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -11,9 +12,10 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
-exports.create = async (data) => {
-    let result = {};
-    let imgs = data.files;
+exports.create= async (data)=>{
+    let result   = {};
+    let saldo = 0;
+    let imgs     = data.files;
     let dataUser = data.body;
     let imgCloudinary = {};
     try {
@@ -49,7 +51,9 @@ exports.create = async (data) => {
             //Crear usuario
             user = await usuarios.create(dtaUsuario);
             if (user) {
-                result.data = user;
+                const dataToSend = {id: `${user.id}`}
+                await axios.post(`http://localhost:3001/usuarios/bolsillo`, dataToSend);
+                result.data    = user;
                 result.message = "Usuario registrado con éxito";
                 await sendEmail(
                     dtaPersona.correo_electronico,
@@ -94,6 +98,7 @@ exports.create = async (data) => {
             if (usuariosVerifi) {
                 result.data = user;
                 result.message = "Usuario registrado con éxito";
+
             } else {
                 throw new Error("Error al intentar guardar las imagenes del usuario");
             }
@@ -101,7 +106,8 @@ exports.create = async (data) => {
             throw new Error("Error faltan datos para proceder con el registro");
         }
     } catch (error) {
-        result.error = error.message;
+        console.log(error.message);
+        result.error=error.message;
     }
     console.log(result);
     return result;
