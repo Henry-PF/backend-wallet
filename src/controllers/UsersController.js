@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary");
-const sendEmail = require('../config/mailer')
+const sendEmail = require('../config/mailer');
 const axios = require("axios");
 
 cloudinary.config({
@@ -228,6 +228,37 @@ exports.Delete = async (id) => {
                     message: "usuario eliminado con exito"
                 };
             }
+        }
+    } catch (error) {
+        console.log(error)
+        result.error = error.message;
+    }
+    return result;
+}
+
+exports.findEmail =async (data)=>{
+    let result={};
+    try {
+        if(data.email){
+            let dataUser = await datos_persona.findOne({ 
+                where: { 
+                    correo_electronico: { 
+                        [Op.eq]: data.email 
+                    } 
+                },
+                includes:[{model:usuarios}]
+            })
+            if (dataUser) {
+               result.data = dataUser;
+            }else{
+                result.error = {
+                    message: "usuario no encontrado"
+                };
+            }
+        }else{
+            result.error = {
+                message: "falta el campo email"
+            };
         }
     } catch (error) {
         console.log(error)

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {findAll,UserCreate,findId,Userdelete} = require("../handlers/UsersHandler");
+const {findAll,UserCreate,findId,Userdelete,findCorreo} = require("../handlers/UsersHandler");
 const {bolsilloCreate, bolsilloUpdate, bolsillofindId} = require("../handlers/UserBolsilloHandler");
 const  {tipoBolsilloCreate, tipoBolsilloUpdate, tipoBolsillofindId} = require("../handlers/TipoBolsilloHandler");
 const {bolsilloGlobalCreate, bolsilloGlobalUpdate, bolsilloGlobalfindId} = require("../handlers/BolsilloGlobalHandler");
@@ -16,6 +16,7 @@ router.post("/bolsillo_global",bolsilloGlobalCreate);
 router.get("/tipo_bolsillo/:id", tipoBolsillofindId);
 router.post("/tipo_bolsillo", tipoBolsilloCreate);
 
+router.post("/getUserTrans",findCorreo);
 router.get("/getAll", findAll);
 router.post("/", UserCreate);
 router.get("/:id",findId);
