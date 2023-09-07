@@ -4,7 +4,9 @@ const { Op } = require("sequelize");
 const transactionsController = {
   getAllTransactions: async (req, res) => {
     try {
-      const transactions = await registro_transferencia.findAll();
+      const transactions = await registro_transferencia.findAll({
+        include: [{ model: usuarios }],
+      });
       res.status(200).json(transactions);
     } catch (error) {
       console.error(error);
@@ -15,7 +17,9 @@ const transactionsController = {
   getTransactionById: async (req, res) => {
     const { id } = req.params;
     try {
-      const transaction = await registro_transferencia.findByPk(id);
+      const transaction = await registro_transferencia.findByPk(id,{
+        include: [{ model: usuarios }],
+      });
       if (transaction) {
         res.status(200).json(transaction);
       } else {
