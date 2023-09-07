@@ -1,42 +1,36 @@
-const { saldo_bolsillo_global } = require("../db.js");
+const { saldo_bolsillo_global, tipo_bolsillo } = require("../db.js");
+const {createTipoBolsillo} = require("./TipoBolsilloController.js");
 const { Op } = require("sequelize");
-const axios = require("axios");
 
-const SaldoBolsilloController = {
-
-    getBolsilloGlobal: async (req, res) => {
-        const idUser = Number(req.params.id);
+   exports.getBolsilloGlobal = async (data) => {
     try {
-        const FindBolsilloGlobal = await saldo_bolsillo_global.findOne({where: {id_tipo_bolsillo:{[Op.eq]: idUser}}});
+        const FindBolsilloGlobal = await saldo_bolsillo_global.findOne({where: {id_tipo_bolsillo:{[Op.eq]: data}}});
 
-        const tipo_bolsillo = await axios(`http://localhost:3001/usuarios/tipo_bolsillo/${FindBolsilloGlobal.id}`);
+        const tipoBolsillo = await tipo_bolsillo.findOne({where: {id:{[Op.eq]: data}}});
 
         const result = {
              monto: FindBolsilloGlobal.monto, 
-              tipo_bolsillo: tipo_bolsillo.data.nombre};
+              tipo_bolsillo: tipoBolsillo.dataValues.nombre};
 
-        return res.status(201).send(result);
+        return result;
     }
         catch(error){
-      res.status(500).json({ "error": error.message});
+        return error.message
     }
-  },
+  };
 
-  createBolsilloGlobal: async (req, res) => {
+  exports.createBolsilloGlobal = async (data) => {
     try {
-        const tipoBolsillo = await axios.post("http://localhost:3001/usuarios/tipo_bolsillo");
+        const tipoBolsillo = await createTipoBolsillo();
         
         const billetera = await saldo_bolsillo_global.create({
-            id_tipo_bolsillo: tipoBolsillo.data.id,
+            id_tipo_bolsillo: tipoBolsillo.id,
             monto: 0
         })
 
-       return res.status(201).send(billetera)
+       return billetera;
     } catch (error) {
       console.error(error); 
-      res.status(500).json({ "error": error.message});
+      return error.message
     }
-  },
-};
-
-module.exports = SaldoBolsilloController;
+  };

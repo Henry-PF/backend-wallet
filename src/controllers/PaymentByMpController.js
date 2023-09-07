@@ -30,7 +30,7 @@ const paymenyByMpController = {
                         }
                     ],
                     back_urls: {
-                        success: `http://localhost:3002/dashboard/mi_billetera`,
+                        success: `http://localhost:3000/dashboard/mi_billetera`,
                         failure: "http://localhost:3001/paymentByMp/failure",
                         pending: "http://localhost:3001/paymentByMp/pending"
                     },

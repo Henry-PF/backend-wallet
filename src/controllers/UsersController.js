@@ -1,4 +1,5 @@
-const { usuarios, datos_persona, tipo_usuario, usuarios_verificacion } = require("../db");
+const {usuarios,datos_persona,tipo_usuario,usuarios_verificacion} = require("../db");
+const {createBolsillo} = require("../controllers/UsuarioBolsilloController")
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -52,7 +53,7 @@ exports.create= async (data)=>{
             user = await usuarios.create(dtaUsuario);
             if (user) {
                 const dataToSend = {id: `${user.id}`}
-                await axios.post(`http://localhost:3001/usuarios/bolsillo`, dataToSend);
+                await createBolsillo(dataToSend);
                 result.data    = user;
                 result.message = "Usuario registrado con éxito";
                 await sendEmail(
