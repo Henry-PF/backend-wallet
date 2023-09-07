@@ -127,7 +127,12 @@ exports.findAll = async () => {
     try {
         await usuarios.findAll({
             attributes: { exclude: ['contrasena', 'id_persona', 'id_tipo_usuario'] },
-            include: [{ model: datos_persona }, { model: tipo_usuario }]
+            include: [{ model: datos_persona }, { model: tipo_usuario }],
+            where: {
+                isactivo: {
+                    [Op.eq]: true
+                }
+            }
         }).then((dta) => {
             result.data = dta;
         });
@@ -210,7 +215,7 @@ exports.Delete = async (id) => {
     try {
         let dataUser = await usuarios.findOne({
             where: {
-                id: {
+                id_persona: {
                     [Op.eq]: id
                 }
             }
@@ -218,7 +223,7 @@ exports.Delete = async (id) => {
         if (dataUser) {
             let dtaN = await usuarios.update({ isactivo: false }, {
                 where: {
-                    id: {
+                    id_persona: {
                         [Op.eq]: id
                     }
                 }
@@ -248,6 +253,7 @@ exports.findEmail =async (data)=>{
                 },
                 includes:[{model:usuarios}]
             })
+            console.log(dataUser);
             if (dataUser) {
                result.data = dataUser;
             }else{
