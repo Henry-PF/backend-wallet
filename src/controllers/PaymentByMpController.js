@@ -34,7 +34,7 @@ const paymenyByMpController = {
                         failure: "http://localhost:3001/paymentByMp/failure",
                         pending: "http://localhost:3001/paymentByMp/pending"
                     },
-                    notification_url: "https://7671-2803-9800-b843-7f50-c987-8dd4-d2a1-7539.ngrok.io/payment/webhook"
+                    notification_url: "https://web-app-nav5.onrender.com/payment/webhook"
                 };
 
                 mercadoPago.preferences
